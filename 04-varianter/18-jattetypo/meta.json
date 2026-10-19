@@ -1,0 +1,9 @@
+{
+ "nr": 18,
+ "id": "jattetypo",
+ "namn": "Jättetypografi",
+ "ide": "Namnet i en storlek som fyller hela sidan och skärs av vid tröskeln. Inga symboler, inga ord till.",
+ "ref": 2706,
+ "basT": "#FF5A1F",
+ "basC": null
+}

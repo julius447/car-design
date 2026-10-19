@@ -1,0 +1,9 @@
+{
+ "nr": 11,
+ "id": "diagonal",
+ "namn": "Diagonalen",
+ "ide": "En diagonal delar bilen i vitt och elblått. Staplat ordmärke på den blå delen, så att en rad bilar blir ett mönster.",
+ "ref": 220,
+ "basT": null,
+ "basC": null
+}

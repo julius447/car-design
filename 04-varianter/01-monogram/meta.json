@@ -1,0 +1,9 @@
+{
+ "nr": 1,
+ "id": "monogram",
+ "namn": "Monogram",
+ "ide": "Ett enda a i en storlek som får bilens kanter att skära av det. Namnet sitter litet på förardörren.",
+ "ref": 85,
+ "basT": "#0D0E10",
+ "basC": null
+}

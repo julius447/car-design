@@ -26,3 +26,20 @@ cd verktyg
 npm install
 npm run build
 ```
+
+## 04 Varianter (oktober 2026)
+
+Tjugo Ampy-varianter, en per referens i `03-referensbank`, på riktiga foton av Transporter T6.1 (helfoliering) och Caddy 5 (delfoliering).
+
+- `04-varianter/index.html`: galleriet (bilder i `webb/`, fullstorlek per variant i `NN-namn/`)
+- `verktyg/mockup/`: foton, uppmätta referenspunkter (`vyer.json`), designer (`designer.mjs`) och kompositör
+
+Bygg om (kräver `pip install opencv-python-headless rembg[cpu]` för nya foton):
+
+```sh
+cd verktyg && npm install
+python3 mockup/prep.py         # lackmasker
+node mockup/rendera.mjs        # designlager
+python3 mockup/komponera.py    # mockups
+python3 varianter.py           # galleri
+```

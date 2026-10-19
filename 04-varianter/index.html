@@ -1,0 +1,675 @@
+<title>Ampy Tjugo Varianter</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: ett galleri. Översikt överst, sedan en stor bild per variant med vyerna under. */
+:root{
+  --bg:#ecebe7; --ink:#111214; --muted:#5d6066; --line:rgba(17,18,20,.13); --card:#f6f5f2; --chip:#dddcd6;
+  --accent:#2f54ff; --nej:#c23a22;
+  --sans:"Inter Tight", "Helvetica Neue", Arial, sans-serif; --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141517; --ink:#ececea; --muted:#9a9ea6; --line:rgba(236,236,234,.14); --card:#1c1e21; --chip:#26282c; --accent:#7d97ff; --nej:#ff8a70; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141517; --ink:#ececea; --muted:#9a9ea6; --line:rgba(236,236,234,.14); --card:#1c1e21; --chip:#26282c; --accent:#7d97ff; --nej:#ff8a70; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.05rem;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.wrap{max-width:88rem;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:2.5rem 5rem;display:grid;gap:4rem}
+h1,h2{margin:0;font-weight:700;letter-spacing:-.03em;line-height:1;text-wrap:balance}
+h1{font-size:clamp(2.6rem,7vw,5.4rem)}
+h2{font-size:clamp(1.9rem,4vw,3rem)}
+p{margin:0}
+.etikett,figcaption,.status,.summa{font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:var(--muted)}
+.etikett{text-transform:uppercase}
+.top{display:grid;gap:1.1rem;max-width:58rem}
+.lead{font-size:clamp(1.1rem,2vw,1.35rem)}
+.metod{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1rem 2rem;border-top:1px solid var(--line);padding-top:1.2rem}
+.metod div{display:grid;gap:.3rem;min-width:0}
+.metod b{font-weight:600}
+.metod p{font-size:.95rem;color:var(--muted)}
+.oversikt{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,13rem),1fr));gap:.8rem}
+.tumme{display:grid;gap:.35rem;text-decoration:none;color:inherit;border-radius:10px;padding:.35rem;transition:background .15s}
+.tumme:hover{background:var(--chip)}
+.tumme:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tumme img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:7px;display:block;background:var(--chip)}
+.tumme span{font-size:.9rem}
+.tumme b{font-family:var(--mono);font-weight:500;color:var(--muted);margin-right:.25rem}
+.tumme[data-val="favorit"] span::after{content:" · favorit";color:var(--accent)}
+.tumme[data-val="nej"] img{opacity:.35;filter:grayscale(1)}
+.summa{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+.variant{display:grid;gap:1.2rem;padding-top:2.5rem;border-top:2px solid var(--ink)}
+.v-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;align-items:end}
+.v-titel{display:grid;gap:.5rem}
+.ide{font-size:1.2rem;max-width:46rem}
+.ref{margin:0;display:grid;gap:.3rem;width:clamp(7rem,16vw,11rem)}
+.ref img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block}
+@media (max-width:620px){.v-head{grid-template-columns:1fr}.ref{width:9rem}}
+.hero{margin:0}
+.hero img{width:100%;display:block;border-radius:12px;background:var(--chip)}
+.vyer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+@media (max-width:900px){.vyer{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vyer figure{margin:0;display:grid;gap:.35rem}
+.vyer img{width:100%;aspect-ratio:3/2;object-fit:contain;border-radius:8px;display:block;background:var(--chip)}
+.beslut{display:grid;gap:.55rem;background:var(--card);border-radius:12px;padding:1rem 1.1rem;max-width:44rem}
+.val{display:flex;flex-wrap:wrap;gap:.4rem}
+.val button{font:500 .95rem var(--sans);padding:.45rem 1rem;border-radius:99px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.val button:hover{background:var(--line)}
+.val button:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.val button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.val button[aria-pressed="true"][data-val="favorit"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.val button[aria-pressed="true"][data-val="nej"]{background:var(--nej);border-color:var(--nej);color:#fff}
+.not{font-size:.88rem;color:var(--muted)}
+textarea{font:400 1rem var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;width:100%;resize:vertical}
+.slut{background:var(--ink);color:var(--bg);border-radius:16px;padding:clamp(1.25rem,4vw,2.5rem);display:grid;gap:.9rem}
+.slut h2{color:var(--bg)}
+.slut ol{margin:0;padding-left:1.2rem;display:grid;gap:.5rem;max-width:50rem}
+</style>
+<div class="wrap">
+<header class="top">
+  <p class="etikett">Ampy · fordonsdekor · oktober 2026</p>
+  <h1>Tjugo varianter</h1>
+  <p class="lead">En Ampy-variant för var och en av de 20 referenserna du gillade. Varje variant visas på Transporter T6.1 med helfoliering och på Caddy 5 med delfoliering, från fem vinklar. Markera <b>Favorit</b>, <b>Kanske</b> eller <b>Nej</b>, så vet jag vilka spår som ska drivas vidare.</p>
+  <div class="metod">
+    <div><b>Riktiga bilar</b><p>Fotona är av en vit T6.1 från 2020 och en vit Caddy 5, samma modeller som i er flotta. Designen ligger på lacken med fotots egna reflexer, skuggor och dörrspringor. Inga AI-bilder.</p></div>
+    <div><b>Skisser, inte tryckfiler</b><p>Måtten är uppmätta för hand ur fotona, några centimeter fel i verklig storlek. Vyerna snett framifrån och bakifrån är perspektivlagda och kan ha små skarvar vid B-stolpen.</p></div>
+    <div><b>Ordmärkena är typsnittsskisser</b><p>Brandbooken är förkastad, så ordet ampy är satt i olika typsnitt per variant. Ingen av dem är en färdig logotyp, utan visar en riktning.</p></div>
+    <div><b>QR-koden fungerar</b><p>Varje variant har en egen kod till ampy.se/bil med variantnumret. Skylten är ersatt med AMP 001 och AMP 002.</p></div>
+  </div>
+</header>
+<section aria-label="Översikt" class="oversikt"><a class="tumme" href="#v1"><img src="webb/01-monogram/t34.jpg" alt=""><span><b>01</b> Monogram</span></a><a class="tumme" href="#v2"><img src="webb/02-ogla/t34.jpg" alt=""><span><b>02</b> Öglan</span></a><a class="tumme" href="#v3"><img src="webb/03-konstruktion/t34.jpg" alt=""><span><b>03</b> Konstruktion</span></a><a class="tumme" href="#v4"><img src="webb/04-labb/t34.jpg" alt=""><span><b>04</b> Labbet</span></a><a class="tumme" href="#v5"><img src="webb/05-bandet/t34.jpg" alt=""><span><b>05</b> Bandet</span></a><a class="tumme" href="#v6"><img src="webb/06-skymning/t34.jpg" alt=""><span><b>06</b> Skymning</span></a><a class="tumme" href="#v7"><img src="webb/07-ingenjor/t34.jpg" alt=""><span><b>07</b> Ingenjören</span></a><a class="tumme" href="#v8"><img src="webb/08-servicefarg/t34.jpg" alt=""><span><b>08</b> Servicefärgen</span></a><a class="tumme" href="#v9"><img src="webb/09-grafit/t34.jpg" alt=""><span><b>09</b> Grafit</span></a><a class="tumme" href="#v10"><img src="webb/10-troskel/t34.jpg" alt=""><span><b>10</b> Tröskeln</span></a><a class="tumme" href="#v11"><img src="webb/11-diagonal/t34.jpg" alt=""><span><b>11</b> Diagonalen</span></a><a class="tumme" href="#v12"><img src="webb/12-uppgradering/t34.jpg" alt=""><span><b>12</b> Uppgraderingen</span></a><a class="tumme" href="#v13"><img src="webb/13-kurvan/t34.jpg" alt=""><span><b>13</b> Kurvan</span></a><a class="tumme" href="#v14"><img src="webb/14-rander/t34.jpg" alt=""><span><b>14</b> Ränderna</span></a><a class="tumme" href="#v15"><img src="webb/15-faltlinjer/t34.jpg" alt=""><span><b>15</b> Fältlinjerna</span></a><a class="tumme" href="#v16"><img src="webb/16-streck/t34.jpg" alt=""><span><b>16</b> Strecken</span></a><a class="tumme" href="#v17"><img src="webb/17-vagor/t34.jpg" alt=""><span><b>17</b> Vågorna</span></a><a class="tumme" href="#v18"><img src="webb/18-jattetypo/t34.jpg" alt=""><span><b>18</b> Jättetypografi</span></a><a class="tumme" href="#v19"><img src="webb/19-schweiz/t34.jpg" alt=""><span><b>19</b> Schweiz</span></a><a class="tumme" href="#v20"><img src="webb/20-rullar/t34.jpg" alt=""><span><b>20</b> Rullande</span></a></section>
+<p class="summa"><span id="summa-text">Laddar dina val…</span></p>
+
+<article class="variant" id="v1">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 01 av 20</p>
+      <h2>Monogram</h2>
+      <p class="ide">Ett enda a i en storlek som får bilens kanter att skära av det. Namnet sitter litet på förardörren.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/85.jpg" alt="Referens: Stephenson Lithograph"><figcaption>Referens: Stephenson Lithograph</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/01-monogram/t34.jpg" alt="Monogram på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/01-monogram/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/01-monogram/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/01-monogram/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/01-monogram/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Monogram" data-key="v1">
+      <button type="button" data-val="favorit" id="b-v1-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v1-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v1-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v1">Vad är rätt eller fel?</label>
+    <textarea id="n-v1" data-key="v1" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v1" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v2">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 02 av 20</p>
+      <h2>Öglan</h2>
+      <p class="ide">Ett p i signalorange, så stort att bara öglan och skaftet syns. Delfolierad Caddy ser helfolierad ut.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/104.jpg" alt="Referens: Elhapé"><figcaption>Referens: Elhapé</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/02-ogla/t34.jpg" alt="Öglan på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/02-ogla/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/02-ogla/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/02-ogla/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/02-ogla/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Öglan" data-key="v2">
+      <button type="button" data-val="favorit" id="b-v2-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v2-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v2-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v2">Vad är rätt eller fel?</label>
+    <textarea id="n-v2" data-key="v2" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v2" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v3">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 03 av 20</p>
+      <h2>Konstruktion</h2>
+      <p class="ide">Bokstäverna i ampy plockade isär till cirklar, bågar och skaft, beskurna av bakkanten.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/91.jpg" alt="Referens: CCO"><figcaption>Referens: CCO</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/03-konstruktion/t34.jpg" alt="Konstruktion på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/03-konstruktion/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/03-konstruktion/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/03-konstruktion/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/03-konstruktion/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Konstruktion" data-key="v3">
+      <button type="button" data-val="favorit" id="b-v3-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v3-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v3-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v3">Vad är rätt eller fel?</label>
+    <textarea id="n-v3" data-key="v3" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v3" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v4">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 04 av 20</p>
+      <h2>Labbet</h2>
+      <p class="ide">Ett a byggt av ett skaft och en ögla i svart, beskuret av tröskeln. Saklig text i liten storlek.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/2664.jpg" alt="Referens: Actnova"><figcaption>Referens: Actnova</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/04-labb/t34.jpg" alt="Labbet på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/04-labb/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/04-labb/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/04-labb/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/04-labb/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Labbet" data-key="v4">
+      <button type="button" data-val="favorit" id="b-v4-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v4-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v4-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v4">Vad är rätt eller fel?</label>
+    <textarea id="n-v4" data-key="v4" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v4" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v5">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 05 av 20</p>
+      <h2>Bandet</h2>
+      <p class="ide">Vit bil, ett elblått band precis bakom B-stolpen och ett glest ordmärke. Billigast av alla, för båda bilarna.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/773.jpg" alt="Referens: Tesla Mobile Service"><figcaption>Referens: Tesla Mobile Service</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/05-bandet/t34.jpg" alt="Bandet på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/05-bandet/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/05-bandet/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/05-bandet/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/05-bandet/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Bandet" data-key="v5">
+      <button type="button" data-val="favorit" id="b-v5-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v5-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v5-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v5">Vad är rätt eller fel?</label>
+    <textarea id="n-v5" data-key="v5" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v5" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v6">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 06 av 20</p>
+      <h2>Skymning</h2>
+      <p class="ide">Ett illustrerat fält med en villa i skymning och tänt ljus i fönstren. Transportern får hela panoramat, Caddyn en remsa bak.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/842.jpg" alt="Referens: Rivian Mobile Service"><figcaption>Referens: Rivian Mobile Service</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/06-skymning/t34.jpg" alt="Skymning på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/06-skymning/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/06-skymning/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/06-skymning/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/06-skymning/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Skymning" data-key="v6">
+      <button type="button" data-val="favorit" id="b-v6-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v6-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v6-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v6">Vad är rätt eller fel?</label>
+    <textarea id="n-v6" data-key="v6" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v6" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v7">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 07 av 20</p>
+      <h2>Ingenjören</h2>
+      <p class="ide">Nästan ingenting. Ett litet ordmärke och teknisk text i liten storlek, som en specifikation på karossen.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/921.jpg" alt="Referens: Polestar 3"><figcaption>Referens: Polestar 3</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/07-ingenjor/t34.jpg" alt="Ingenjören på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/07-ingenjor/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/07-ingenjor/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/07-ingenjor/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/07-ingenjor/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Ingenjören" data-key="v7">
+      <button type="button" data-val="favorit" id="b-v7-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v7-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v7-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v7">Vad är rätt eller fel?</label>
+    <textarea id="n-v7" data-key="v7" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v7" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v8">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 08 av 20</p>
+      <h2>Servicefärgen</h2>
+      <p class="ide">En egen röd servicefärg och vit text med luft mellan bokstäverna, som en verkstadsbil från ett biltillverkarteam.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/2133.jpg" alt="Referens: Porsche Renndienst ID. Buzz"><figcaption>Referens: Porsche Renndienst ID. Buzz</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/08-servicefarg/t34.jpg" alt="Servicefärgen på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/08-servicefarg/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/08-servicefarg/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/08-servicefarg/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/08-servicefarg/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Servicefärgen" data-key="v8">
+      <button type="button" data-val="favorit" id="b-v8-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v8-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v8-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v8">Vad är rätt eller fel?</label>
+    <textarea id="n-v8" data-key="v8" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v8" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v9">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 09 av 20</p>
+      <h2>Grafit</h2>
+      <p class="ide">Grafitgrå bil och ett stort ordmärke i vitt. Allt hänger på typsnittet.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/551.jpg" alt="Referens: Wild"><figcaption>Referens: Wild</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/09-grafit/t34.jpg" alt="Grafit på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/09-grafit/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/09-grafit/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/09-grafit/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/09-grafit/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Grafit" data-key="v9">
+      <button type="button" data-val="favorit" id="b-v9-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v9-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v9-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v9">Vad är rätt eller fel?</label>
+    <textarea id="n-v9" data-key="v9" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v9" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v10">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 10 av 20</p>
+      <h2>Tröskeln</h2>
+      <p class="ide">Svart bil och vitt ordmärke. Längs tröskeln en rad staplar som stiger mot en neongrön, som en laddning som blir klar.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/1123.jpg" alt="Referens: Roft"><figcaption>Referens: Roft</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/10-troskel/t34.jpg" alt="Tröskeln på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/10-troskel/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/10-troskel/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/10-troskel/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/10-troskel/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Tröskeln" data-key="v10">
+      <button type="button" data-val="favorit" id="b-v10-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v10-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v10-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v10">Vad är rätt eller fel?</label>
+    <textarea id="n-v10" data-key="v10" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v10" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v11">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 11 av 20</p>
+      <h2>Diagonalen</h2>
+      <p class="ide">En diagonal delar bilen i vitt och elblått. Staplat ordmärke på den blå delen, så att en rad bilar blir ett mönster.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/220.jpg" alt="Referens: Van Uhm"><figcaption>Referens: Van Uhm</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/11-diagonal/t34.jpg" alt="Diagonalen på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/11-diagonal/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/11-diagonal/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/11-diagonal/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/11-diagonal/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Diagonalen" data-key="v11">
+      <button type="button" data-val="favorit" id="b-v11-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v11-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v11-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v11">Vad är rätt eller fel?</label>
+    <textarea id="n-v11" data-key="v11" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v11" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v12">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 12 av 20</p>
+      <h2>Uppgraderingen</h2>
+      <p class="ide">En jättelik pil i signalorange som pekar uppåt och framåt. Ett budskap utan ord: elen blir bättre.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/22.jpg" alt="Referens: Palfinger"><figcaption>Referens: Palfinger</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/12-uppgradering/t34.jpg" alt="Uppgraderingen på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/12-uppgradering/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/12-uppgradering/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/12-uppgradering/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/12-uppgradering/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Uppgraderingen" data-key="v12">
+      <button type="button" data-val="favorit" id="b-v12-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v12-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v12-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v12">Vad är rätt eller fel?</label>
+    <textarea id="n-v12" data-key="v12" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v12" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v13">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 13 av 20</p>
+      <h2>Kurvan</h2>
+      <p class="ide">En mjuk kurva lyfter från fronten mot taket bak. Djupgrönt över, svart under. Caddyn får bara den gröna kurvan.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/198.jpg" alt="Referens: Starbucks (koncept)"><figcaption>Referens: Starbucks (koncept)</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/13-kurvan/t34.jpg" alt="Kurvan på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/13-kurvan/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/13-kurvan/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/13-kurvan/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/13-kurvan/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Kurvan" data-key="v13">
+      <button type="button" data-val="favorit" id="b-v13-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v13-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v13-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v13">Vad är rätt eller fel?</label>
+    <textarea id="n-v13" data-key="v13" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v13" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v14">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 14 av 20</p>
+      <h2>Ränderna</h2>
+      <p class="ide">Vitt upptill, marinblått nedtill och två ränder i midjan: elblått och signalorange. Caddyn får bara ränderna.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/2124.jpg" alt="Referens: Rothmans Porsche"><figcaption>Referens: Rothmans Porsche</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/14-rander/t34.jpg" alt="Ränderna på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/14-rander/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/14-rander/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/14-rander/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/14-rander/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Ränderna" data-key="v14">
+      <button type="button" data-val="favorit" id="b-v14-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v14-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v14-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v14">Vad är rätt eller fel?</label>
+    <textarea id="n-v14" data-key="v14" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v14" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v15">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 15 av 20</p>
+      <h2>Fältlinjerna</h2>
+      <p class="ide">Djupgrön bil med tunna vita linjer. Det är ekvipotentiallinjer runt elektriska laddningar, alltså riktig fysik och inte dekor.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/547.jpg" alt="Referens: Tulachky"><figcaption>Referens: Tulachky</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/15-faltlinjer/t34.jpg" alt="Fältlinjerna på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/15-faltlinjer/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/15-faltlinjer/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/15-faltlinjer/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/15-faltlinjer/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Fältlinjerna" data-key="v15">
+      <button type="button" data-val="favorit" id="b-v15-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v15-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v15-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v15">Vad är rätt eller fel?</label>
+    <textarea id="n-v15" data-key="v15" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v15" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v16">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 16 av 20</p>
+      <h2>Strecken</h2>
+      <p class="ide">Ett jättelikt a byggt av turkosa streck på en stålgrå bil. Rörelse utan att bli plottrigt.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/1144.jpg" alt="Referens: Dashwood Construction"><figcaption>Referens: Dashwood Construction</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/16-streck/t34.jpg" alt="Strecken på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/16-streck/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/16-streck/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/16-streck/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/16-streck/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Strecken" data-key="v16">
+      <button type="button" data-val="favorit" id="b-v16-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v16-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v16-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v16">Vad är rätt eller fel?</label>
+    <textarea id="n-v16" data-key="v16" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v16" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v17">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 17 av 20</p>
+      <h2>Vågorna</h2>
+      <p class="ide">Koncentriska bågar strålar ut från bakhörnet i två blå toner. Fungerar på allt från Caddy till lastbil.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/1.jpg" alt="Referens: Green Pack"><figcaption>Referens: Green Pack</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/17-vagor/t34.jpg" alt="Vågorna på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/17-vagor/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/17-vagor/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/17-vagor/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/17-vagor/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Vågorna" data-key="v17">
+      <button type="button" data-val="favorit" id="b-v17-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v17-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v17-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v17">Vad är rätt eller fel?</label>
+    <textarea id="n-v17" data-key="v17" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v17" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v18">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 18 av 20</p>
+      <h2>Jättetypografi</h2>
+      <p class="ide">Namnet i en storlek som fyller hela sidan och skärs av vid tröskeln. Inga symboler, inga ord till.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/2706.jpg" alt="Referens: Cilsa"><figcaption>Referens: Cilsa</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/18-jattetypo/t34.jpg" alt="Jättetypografi på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/18-jattetypo/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/18-jattetypo/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/18-jattetypo/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/18-jattetypo/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Jättetypografi" data-key="v18">
+      <button type="button" data-val="favorit" id="b-v18-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v18-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v18-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v18">Vad är rätt eller fel?</label>
+    <textarea id="n-v18" data-key="v18" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v18" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v19">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 19 av 20</p>
+      <h2>Schweiz</h2>
+      <p class="ide">Två spalter i strikt typografi: namnet till vänster, fyra ord till höger. Om tjänsterna ska stå på bilen är det här enda sättet.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/2714.jpg" alt="Referens: Hirsch"><figcaption>Referens: Hirsch</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/19-schweiz/t34.jpg" alt="Schweiz på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/19-schweiz/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/19-schweiz/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/19-schweiz/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/19-schweiz/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Schweiz" data-key="v19">
+      <button type="button" data-val="favorit" id="b-v19-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v19-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v19-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v19">Vad är rätt eller fel?</label>
+    <textarea id="n-v19" data-key="v19" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v19" aria-live="polite"></p>
+  </div>
+</article>
+<article class="variant" id="v20">
+  <header class="v-head">
+    <div class="v-titel">
+      <p class="etikett">Variant 20 av 20</p>
+      <h2>Rullande</h2>
+      <p class="ide">Namnet i gemener som rullar upp över sidan och viker av runt bakhörnet. Personlighet utan illustration.</p>
+    </div>
+    <figure class="ref"><img src="webb/ref/2705.jpg" alt="Referens: Merchlab"><figcaption>Referens: Merchlab</figcaption></figure>
+  </header>
+  <figure class="hero"><img src="webb/20-rullar/t34.jpg" alt="Rullande på Transporter T6.1, helfolierad, snett framifrån"></figure>
+  <div class="vyer">
+    <figure><img src="webb/20-rullar/tsida.jpg" alt="Transporter från vänster"><figcaption>Transporter · helfoliering</figcaption></figure>
+    <figure><img src="webb/20-rullar/tbak.jpg" alt="Transporter bakifrån"><figcaption>Transporter · bak med QR</figcaption></figure>
+    <figure><img src="webb/20-rullar/csida.jpg" alt="Caddy från vänster"><figcaption>Caddy · delfoliering</figcaption></figure>
+    <figure><img src="webb/20-rullar/c34.jpg" alt="Caddy snett bakifrån"><figcaption>Caddy · bak och höger sida</figcaption></figure>
+  </div>
+  <div class="beslut">
+    <div class="val" role="group" aria-label="Bedöm Rullande" data-key="v20">
+      <button type="button" data-val="favorit" id="b-v20-favorit">Favorit</button>
+      <button type="button" data-val="kanske" id="b-v20-kanske">Kanske</button>
+      <button type="button" data-val="nej" id="b-v20-nej">Nej</button>
+    </div>
+    <label class="not" for="n-v20">Vad är rätt eller fel?</label>
+    <textarea id="n-v20" data-key="v20" rows="2" placeholder="T.ex. rätt idé men fel färg, eller bara på Transportern"></textarea>
+    <p class="status" data-status="v20" aria-live="polite"></p>
+  </div>
+</article>
+<section class="slut">
+  <p class="etikett" style="color:inherit;opacity:.7">När du har valt</p>
+  <h2>Nästa steg</h2>
+  <ol>
+    <li>Markera favoriter och skriv vad som är fel på de du säger nej till. Det kalibrerar mer än favoriterna.</li>
+    <li>Säg till i chatten när du är klar, så läser jag dina val.</li>
+    <li>Jag tar de 3–5 bästa vidare: ett riktigt ordmärke, färgprov, höger sida och bilen i gatumiljö.</li>
+  </ol>
+</section>
+</div>
+<script>
+(() => {
+  const state = {};
+  const summa = document.getElementById('summa-text');
+  let db = null;
+  function rendera(k) {
+    const s = state[k] || {};
+    document.querySelectorAll('.val[data-key="' + k + '"] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.val === s.val)));
+    const t = document.querySelector('.tumme[href="#' + k + '"]'); if (t) t.dataset.val = s.val || '';
+    const ta = document.querySelector('textarea[data-key="' + k + '"]');
+    if (ta && document.activeElement !== ta && typeof s.notering === 'string') ta.value = s.notering;
+    const n = { favorit: 0, kanske: 0, nej: 0 };
+    Object.values(state).forEach(v => { if (n[v.val] !== undefined) n[v.val]++; });
+    summa.textContent = n.favorit + ' favoriter · ' + n.kanske + ' kanske · ' + n.nej + ' nej · ' + (20 - n.favorit - n.kanske - n.nej) + ' kvar';
+  }
+  async function spara(k, patch) {
+    state[k] = { ...(state[k] || {}), ...patch };
+    rendera(k);
+    const st = document.querySelector('[data-status="' + k + '"]');
+    if (!db) { if (st) st.textContent = 'Sparas inte här. Skriv ditt svar i chatten.'; return; }
+    if (st) st.textContent = 'Sparar…';
+    try {
+      await db.doc('val/' + k).set({ val: state[k].val || '', notering: state[k].notering || '', tid: new Date().toISOString() });
+      if (st) st.textContent = 'Sparat';
+    } catch (e) {
+      if (st) st.textContent = e && e.code === 'invalid_argument' ? 'Du har bara läsbehörighet här.' : 'Kunde inte spara. Försök igen.';
+    }
+  }
+  document.querySelectorAll('.val').forEach(g => g.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    const k = g.dataset.key; spara(k, { val: (state[k] || {}).val === b.dataset.val ? '' : b.dataset.val });
+  })));
+  document.querySelectorAll('textarea[data-key]').forEach(ta => { let t; ta.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => spara(ta.dataset.key, { notering: ta.value }), 800); }); });
+  rendera('_');
+  (async () => {
+    try { db = window.claude && window.claude.use ? await window.claude.use('db') : null; } catch (e) { db = null; }
+    if (!db) { summa.textContent = 'Dina val sparas inte i den här vyn.'; return; }
+    db.collection('val').onSnapshot(snap => snap.docs.forEach(d => { if (d.exists) { state[d.id] = d.data(); rendera(d.id); } }),
+      () => { summa.textContent = 'Tappade kontakten med lagringen. Ladda om sidan.'; });
+  })();
+})();
+</script>

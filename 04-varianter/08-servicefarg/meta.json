@@ -1,0 +1,9 @@
+{
+ "nr": 8,
+ "id": "servicefarg",
+ "namn": "Servicefärgen",
+ "ide": "En egen röd servicefärg och vit text med luft mellan bokstäverna, som en verkstadsbil från ett biltillverkarteam.",
+ "ref": 2133,
+ "basT": "#C1121F",
+ "basC": null
+}
