@@ -44,3 +44,7 @@ Sessionen måste kunna hämta bilder:
 
 - Nätåtkomst till pinterest.com, i.pinimg.com, google.com, behance.net, mir-s3-cdn-cf.behance.net och ampy.se.
 - Nätåtkomst till mcp.figma.com för Figma.
+
+## Status (19 okt 2026)
+
+Referensbanken är klar: `03-referensbank/index.html` (data i `data.json`, bygg med `python3 verktyg/referensbank.py`). Den publicerade sidan sparar Julius val (spår och referenser) i sidans databas, i samlingen `val`. Läs valen innan nästa steg.
